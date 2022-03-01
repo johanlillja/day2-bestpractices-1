@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 from math import ceil,sqrt
-@profile
+#@profile
 def gen_primes(n):
     l = range(2,n)
     primes = []
@@ -12,21 +12,21 @@ def gen_primes(n):
                 break
             if(l[j] % d == 0):
                 p = False
-                break;
+                break
         if(p):
             primes.append(l[j])
 
     return primes
 
-@profile
-def factorize(n,primes):
+#@profile
+def factorize(n,primes):            #Slow function, so speed up here. percent of total time in the loop is commented
     factors = []
     init_n = n
-    for p in primes:
-        while(n%p == 0):
+    for p in primes:                #17.9%
+        while(n%p == 0):            #29.8%
             n = n/p
             factors.append(p)
-        if(p > sqrt(n)):
+        if(p > sqrt(n)):            #29.0%
             break
     if(n > 1):
         factors.append(n)
@@ -47,9 +47,9 @@ def phi(n,primes):
             p+=1
     return p
 
-@profile
+#@profile
 def fast_phi(n,primes):
-    factors = factorize(n,primes)
+    factors = factorize(n,primes) 
     phi = factors[0]-1
     for i in range(1,len(factors)):
         if(factors[i] == factors[i-1]):
